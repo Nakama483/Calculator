@@ -63,11 +63,15 @@ eight.addEventListener('click', () => display.textContent += 8);
 nine.addEventListener('click', () => display.textContent += 9);
 zero.addEventListener('click', () => display.textContent += 0);
 
-
 add.addEventListener('click', () => display.textContent += ' + ');
 subtract.addEventListener('click', () => display.textContent += ' - ');
 multiply.addEventListener('click', () => display.textContent += ' x ');
 divide.addEventListener('click', () => display.textContent += ' / ');
+
+add.addEventListener('click', () => operator = '+');
+subtract.addEventListener('click', () => doperator = '-');
+multiply.addEventListener('click', () => operator = '*');
+divide.addEventListener('click', () => operator = '/');
 
 add.addEventListener('click', () => x = +display.textContent.slice(0, -2));
 subtract.addEventListener('click', () => x = +display.textContent.slice(0, -2));
@@ -75,28 +79,5 @@ multiply.addEventListener('click', () => x = +display.textContent.slice(0, -2));
 divide.addEventListener('click', () => x = +display.textContent.slice(0, -2));
 
 equals.addEventListener('click', () => y = display.textContent.match(reg)[1]);
-equals.addEventListener('click', () => console.log(y));
-equals.addEventListener('click', () => display.textContent = operate());
+equals.addEventListener('click', () => display.textContent = operate(x, operator, y));
 clear.addEventListener('click', () => display.textContent = '');
-
-
-
-
-
-
-
-
-
-
-
-// one.addEventListener('click', () => x = 1);
-// one.addEventListener('click', () => console.log(x));
-// two.addEventListener('click', () => x = 2);
-// three.addEventListener('click', () => x = 3);
-// four.addEventListener('click', () => x = 4);
-// five.addEventListener('click', () => x = 5);
-// six.addEventListener('click', () => x = 6);
-// seven.addEventListener('click', () => x = 7);
-// eight.addEventListener('click', () => x = 8);
-// nine.addEventListener('click', () => x = 9);
-// zero.addEventListener('click', () => x = 0);
