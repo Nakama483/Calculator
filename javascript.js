@@ -11,7 +11,11 @@ function multiplication(x, y) {
 };
 
 function division(x, y) {
-    return x / y;
+    if (x === 0 && y === 0){
+        return 'Error';    
+    } else {
+        return x / y;
+    }
 };
 
 function operate(x, operator, y){
@@ -54,9 +58,11 @@ let operator;
 let result; 
 
 function resetDisplay(num) {
-    if (result !== undefined){
+    if (display.textContent === '0'){
+        display.textContent = num;
+    } else if (result !== undefined){
         result = undefined;
-        display.textContent = '';
+        display.textContent = num;
     } else {
         display.textContent += num;
     }
@@ -64,17 +70,25 @@ function resetDisplay(num) {
 
 function displayResult() {
     let displayArray = display.textContent.split(' ');
-    y = displayArray[displayArray.length - 1];
-    display.textContent = operate(+x, operator, +y);
-    result = display.textContent;
+    if (displayArray.length === 1){
+        display.textContent = +displayArray.join('')
+    } else {
+        y = displayArray[displayArray.length - 1];
+        display.textContent = operate(+x, operator, +y);
+        result = display.textContent;
+    }    
 }
 
 function operateOnResult(symbol) {
-    if (display.textContent < 0) {
+    if (display.textContent === 'Error'){
+        x = 0;
+        operator = symbol;
+        display.textContent = 0 + ` ${symbol} `;
+        result = undefined;
+    } else if (display.textContent < 0) {
         x = +display.textContent;
         operator = symbol;
         display.textContent += ` ${symbol} `;
-    
     } else if (/[+\-x/]/.test(display.textContent)) {
         displayResult();
         x = result;
@@ -123,6 +137,6 @@ multiply.addEventListener('click', () => operateOnResult('x'));
 divide.addEventListener('click', () => operateOnResult('/'));
 
 negativeNumber.addEventListener('click', () => convertToNegative())
-clear.addEventListener('click', () => resetDisplay());
+clear.addEventListener('click', () => display.textContent = 0);
 equals.addEventListener('click', () => displayResult())
 
