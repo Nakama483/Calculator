@@ -50,21 +50,34 @@ const clear = document.getElementById('clear');
 let x;
 let y;
 let operator;
-let result; //undefined
-const reg = /[x+-/](.*)/;
+let result; 
 
-function resetDisplay() {
+function resetDisplay(num) {
     if (result !== undefined){
         result = undefined;
         display.textContent = '';
+    } else {
+        display.textContent += num;
     }
 };
 
+function displayResult() {
+    y = display.textContent.match(/[x+-/](.*)/)[1];
+    display.textContent = operate(+x, operator, +y);
+    result = display.textContent;
+}
+
 function operateOnResult(symbol) {
-    if (result !== undefined){
+    if (/[+\-x/]/.test(display.textContent)) {
+        displayResult();
+        x = result;
+        operator = symbol
+        display.textContent += ` ${symbol} `;
+        result = undefined;
+    } else if (result !== undefined) { 
         x = result;
         operator = symbol;
-        display.textContent = `Ans ${symbol} `;
+        display.textContent += ` ${symbol} `;
         result = undefined;
     } else {
         x = +display.textContent;
@@ -73,40 +86,22 @@ function operateOnResult(symbol) {
     }
 };
 
-one.addEventListener('click', () => resetDisplay());
-one.addEventListener('click', () => display.textContent += 1)
-two.addEventListener('click', () => resetDisplay());
-two.addEventListener('click', () => display.textContent += 2);
-three.addEventListener('click', () => resetDisplay());
-three.addEventListener('click', () => display.textContent += 3);
-four.addEventListener('click', () => resetDisplay());
-four.addEventListener('click', () => display.textContent += 4);
-five.addEventListener('click', () => resetDisplay());
-five.addEventListener('click', () => display.textContent += 5);
-six.addEventListener('click', () => resetDisplay());
-six.addEventListener('click', () => display.textContent += 6);
-seven.addEventListener('click', () => resetDisplay());
-seven.addEventListener('click', () => display.textContent += 7);
-eight.addEventListener('click', () => resetDisplay());
-eight.addEventListener('click', () => display.textContent += 8);
-nine.addEventListener('click', () => resetDisplay());
-nine.addEventListener('click', () => display.textContent += 9);
-zero.addEventListener('click', () => resetDisplay());
-zero.addEventListener('click', () => display.textContent += 0);
+one.addEventListener('click', () => resetDisplay(1));
+two.addEventListener('click', () => resetDisplay(2));
+three.addEventListener('click', () => resetDisplay(3));
+four.addEventListener('click', () => resetDisplay(4));
+five.addEventListener('click', () => resetDisplay(5));
+six.addEventListener('click', () => resetDisplay(6));
+seven.addEventListener('click', () => resetDisplay(7));
+eight.addEventListener('click', () => resetDisplay(8));
+nine.addEventListener('click', () => resetDisplay(9));
+zero.addEventListener('click', () => resetDisplay(0));
 
 add.addEventListener('click', () => operateOnResult('+'));
-add.addEventListener('click', () => console.log(x)); //
-add.addEventListener('click', () => console.log(result)); //
 subtract.addEventListener('click', () => operateOnResult('-'));
 multiply.addEventListener('click', () => operateOnResult('x'));
 divide.addEventListener('click', () => operateOnResult('/'));
 
 clear.addEventListener('click', () => display.textContent = '');
-equals.addEventListener('click', () => y = display.textContent.match(reg)[1]);
-equals.addEventListener('click', () => console.log(x));
-equals.addEventListener('click', () => console.log(operator));
-equals.addEventListener('click', () => console.log(y));
-equals.addEventListener('click', () => display.textContent = operate(+x, operator, +y));
-equals.addEventListener('click', () => result = display.textContent);
-
+equals.addEventListener('click', () => displayResult())
 
