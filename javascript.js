@@ -20,7 +20,7 @@ function operate(x, operator, y){
             return addition(x, y);
         case operator === '-':
             return subtraction(x, y);
-        case operator === '*':
+        case operator === 'x':
             return multiplication(x, y);
         case operator === '/':
             return division(x, y);
@@ -60,11 +60,16 @@ function resetDisplay() {
     }
 };
 
-function operateOnResult(operator) {
+function operateOnResult(symbol) {
     if (result !== undefined){
         x = result;
-        display.textContent = `Ans ${operator} `;
+        operator = symbol;
+        display.textContent = `Ans ${symbol} `;
         result = undefined;
+    } else {
+        x = +display.textContent;
+        operator = symbol;
+        display.textContent += ` ${symbol} `;
     }
 };
 
@@ -89,23 +94,18 @@ nine.addEventListener('click', () => display.textContent += 9);
 zero.addEventListener('click', () => resetDisplay());
 zero.addEventListener('click', () => display.textContent += 0);
 
-add.addEventListener('click', () => display.textContent += ' + ');
-subtract.addEventListener('click', () => display.textContent += ' - ');
-multiply.addEventListener('click', () => display.textContent += ' x ');
-divide.addEventListener('click', () => display.textContent += ' / ');
-
-add.addEventListener('click', () => operator = '+');
-subtract.addEventListener('click', () => operator = '-');
-multiply.addEventListener('click', () => operator = '*');
-divide.addEventListener('click', () => operator = '/');
-
-add.addEventListener('click', () => x = +display.textContent.slice(0, -2));
-subtract.addEventListener('click', () => x = +display.textContent.slice(0, -2));
-multiply.addEventListener('click', () => x = +display.textContent.slice(0, -2));
-divide.addEventListener('click', () => x = +display.textContent.slice(0, -2));
+add.addEventListener('click', () => operateOnResult('+'));
+add.addEventListener('click', () => console.log(x)); //
+add.addEventListener('click', () => console.log(result)); //
+subtract.addEventListener('click', () => operateOnResult('-'));
+multiply.addEventListener('click', () => operateOnResult('x'));
+divide.addEventListener('click', () => operateOnResult('/'));
 
 clear.addEventListener('click', () => display.textContent = '');
 equals.addEventListener('click', () => y = display.textContent.match(reg)[1]);
+equals.addEventListener('click', () => console.log(x));
+equals.addEventListener('click', () => console.log(operator));
+equals.addEventListener('click', () => console.log(y));
 equals.addEventListener('click', () => display.textContent = operate(+x, operator, +y));
 equals.addEventListener('click', () => result = display.textContent);
 
