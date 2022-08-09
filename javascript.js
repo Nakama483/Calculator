@@ -1,20 +1,20 @@
 function addition(x, y) {
-    return x + y;
+    return (x + y).toFixed(8);
 };
 
 function subtraction(x, y) {
-    return x - y;
+    return (x - y).toFixed(8);
 };
 
 function multiplication(x, y) {
-    return x * y;
+    return (x * y).toFixed(8);
 };
 
 function division(x, y) {
     if (x === 0 && y === 0){
         return 'Error';    
     } else {
-        return x / y;
+        return (x / y).toFixed(8);
     }
 };
 
@@ -43,6 +43,7 @@ const seven = document.getElementById('seven');
 const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
 const zero = document.getElementById('zero');
+const decimal = document.getElementById('decimal');
 
 const add = document.getElementById('add');
 const subtract = document.getElementById('subtract');
