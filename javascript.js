@@ -46,6 +46,7 @@ const multiply = document.getElementById('multiply');
 const divide = document.getElementById('divide');
 const equals = document.getElementById('equals');
 const clear = document.getElementById('clear');
+const negativeNumber = document.getElementById('negative')
 
 let x;
 let y;
@@ -62,13 +63,19 @@ function resetDisplay(num) {
 };
 
 function displayResult() {
-    y = display.textContent.match(/[x+-/](.*)/)[1];
+    let displayArray = display.textContent.split(' ');
+    y = displayArray[displayArray.length - 1];
     display.textContent = operate(+x, operator, +y);
     result = display.textContent;
 }
 
 function operateOnResult(symbol) {
-    if (/[+\-x/]/.test(display.textContent)) {
+    if (display.textContent < 0) {
+        x = +display.textContent;
+        operator = symbol;
+        display.textContent += ` ${symbol} `;
+    
+    } else if (/[+\-x/]/.test(display.textContent)) {
         displayResult();
         x = result;
         operator = symbol
@@ -83,6 +90,19 @@ function operateOnResult(symbol) {
         x = +display.textContent;
         operator = symbol;
         display.textContent += ` ${symbol} `;
+    }
+};
+
+function convertToNegative() {
+    let displayArray = display.textContent.split(' ');
+    if (displayArray.length === 1){
+        x = 0 - displayArray[displayArray.length - 1];
+        displayArray[0] = x;
+        display.textContent = displayArray.join(' ');
+    } else {
+        y = 0 - displayArray[displayArray.length - 1];
+        displayArray[displayArray.length - 1] = y;
+        display.textContent = displayArray.join(' ');
     }
 };
 
@@ -102,6 +122,7 @@ subtract.addEventListener('click', () => operateOnResult('-'));
 multiply.addEventListener('click', () => operateOnResult('x'));
 divide.addEventListener('click', () => operateOnResult('/'));
 
-clear.addEventListener('click', () => display.textContent = '');
+negativeNumber.addEventListener('click', () => convertToNegative())
+clear.addEventListener('click', () => resetDisplay());
 equals.addEventListener('click', () => displayResult())
 
