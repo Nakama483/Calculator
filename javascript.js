@@ -11,11 +11,7 @@ function multiplication(x, y) {
 };
 
 function division(x, y) {
-    if (x === 0 && y === 0){
-        return 'Error';    
-    } else {
-        return Math.round((x / y) * 100000000) / 100000000;
-    }
+    return (x === 0 && y === 0) ? 'Error' : Math.round((x / y) * 100000000) / 100000000;
 };
 
 function operate(x, operator, y){
@@ -32,7 +28,6 @@ function operate(x, operator, y){
 };
 
 const display = document.getElementById('display');
-
 const one = document.getElementById('one');
 const two = document.getElementById('two');
 const three = document.getElementById('three');
@@ -44,21 +39,21 @@ const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
 const zero = document.getElementById('zero');
 const decimal = document.getElementById('decimal');
-
 const add = document.getElementById('add');
 const subtract = document.getElementById('subtract');
 const multiply = document.getElementById('multiply');
 const divide = document.getElementById('divide');
 const equals = document.getElementById('equals');
-const clear = document.getElementById('clear');
-const negativeNumber = document.getElementById('negative')
+const negativeNumber = document.getElementById('negative');
+const clearEntry = document.getElementById("backspace");
+const reset = document.getElementById("allclear")
 
 let x;
 let y;
 let operator;
 let result; 
 
-function resetDisplay(num) {
+function displayInt(num) {
     if (display.textContent === '0'){
         display.textContent = num;
     } else if (result !== undefined){
@@ -78,7 +73,7 @@ function displayResult() {
         display.textContent = operate(+x, operator, +y);
         result = display.textContent;
     }    
-}
+};
 
 function operateOnResult(symbol) {
     if (display.textContent === 'Error'){
@@ -108,6 +103,7 @@ function operateOnResult(symbol) {
     }
 };
 
+
 function convertToNegative() {
     let displayArray = display.textContent.split(' ');
     if (displayArray.length === 1){
@@ -123,7 +119,7 @@ function convertToNegative() {
 
 function addDecimal() {
     let displayArray = display.textContent.split(' ');
-    if (displayArray.length === 3 && displayArray[displayArray.length - 1].indexOf('.') === -1){
+    if (displayArray.length === 3 && displayArray[displayArray.length - 1].indexOf('.') === -1) {
         display.textContent += '.';
     }else if (displayArray[0].indexOf('.') > -1){
         displayArray.push('');
@@ -132,24 +128,41 @@ function addDecimal() {
     }
 };
 
-one.addEventListener('click', () => resetDisplay(1));
-two.addEventListener('click', () => resetDisplay(2));
-three.addEventListener('click', () => resetDisplay(3));
-four.addEventListener('click', () => resetDisplay(4));
-five.addEventListener('click', () => resetDisplay(5));
-six.addEventListener('click', () => resetDisplay(6));
-seven.addEventListener('click', () => resetDisplay(7));
-eight.addEventListener('click', () => resetDisplay(8));
-nine.addEventListener('click', () => resetDisplay(9));
-zero.addEventListener('click', () => resetDisplay(0));
-decimal.addEventListener('click', () => addDecimal());
+function allClear(){
+    display.textContent = 0;
+    result = undefined;
+};
 
+function backspace(){
+    let displayArray = display.textContent.split('');
+    if (displayArray[displayArray.length - 1].indexOf(' ') > -1) {
+        displayArray.splice(displayArray.length - 2, displayArray.length -1)
+    } else {
+    displayArray.pop();
+    }
+    display.textContent = displayArray.join('')
+};
+
+
+
+reset.addEventListener('click', () => allClear());
+clearEntry.addEventListener('click', () => backspace())
+one.addEventListener('click', () => displayInt(1));
+two.addEventListener('click', () => displayInt(2));
+three.addEventListener('click', () => displayInt(3));
+four.addEventListener('click', () => displayInt(4));
+five.addEventListener('click', () => displayInt(5));
+six.addEventListener('click', () => displayInt(6));
+seven.addEventListener('click', () => displayInt(7));
+eight.addEventListener('click', () => displayInt(8));
+nine.addEventListener('click', () => displayInt(9));
+zero.addEventListener('click', () => displayInt(0));
+decimal.addEventListener('click', () => addDecimal());
 add.addEventListener('click', () => operateOnResult('+'));
 subtract.addEventListener('click', () => operateOnResult('-'));
 multiply.addEventListener('click', () => operateOnResult('x'));
 divide.addEventListener('click', () => operateOnResult('/'));
-
-negativeNumber.addEventListener('click', () => convertToNegative())
-clear.addEventListener('click', () => display.textContent = '0');
+negativeNumber.addEventListener('click', () => convertToNegative());
 equals.addEventListener('click', () => displayResult());
+
 
