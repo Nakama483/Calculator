@@ -1,20 +1,20 @@
 function addition(x, y) {
-    return (x + y).toFixed(8);
+    return Math.round((x + y) * 100000000) / 100000000;
 };
 
 function subtraction(x, y) {
-    return (x - y).toFixed(8);
+    return Math.round((x - y) * 100000000) / 100000000;
 };
 
 function multiplication(x, y) {
-    return (x * y).toFixed(8);
+    return Math.round((x * y) * 100000000) / 100000000;
 };
 
 function division(x, y) {
     if (x === 0 && y === 0){
         return 'Error';    
     } else {
-        return (x / y).toFixed(8);
+        return Math.round((x / y) * 100000000) / 100000000;
     }
 };
 
@@ -121,6 +121,17 @@ function convertToNegative() {
     }
 };
 
+function addDecimal() {
+    let displayArray = display.textContent.split(' ');
+    if (displayArray.length === 3 && displayArray[displayArray.length - 1].indexOf('.') === -1){
+        display.textContent += '.';
+    }else if (displayArray[0].indexOf('.') > -1){
+        displayArray.push('');
+    } else {
+        display.textContent += '.';
+    }
+};
+
 one.addEventListener('click', () => resetDisplay(1));
 two.addEventListener('click', () => resetDisplay(2));
 three.addEventListener('click', () => resetDisplay(3));
@@ -131,6 +142,7 @@ seven.addEventListener('click', () => resetDisplay(7));
 eight.addEventListener('click', () => resetDisplay(8));
 nine.addEventListener('click', () => resetDisplay(9));
 zero.addEventListener('click', () => resetDisplay(0));
+decimal.addEventListener('click', () => addDecimal());
 
 add.addEventListener('click', () => operateOnResult('+'));
 subtract.addEventListener('click', () => operateOnResult('-'));
@@ -138,6 +150,6 @@ multiply.addEventListener('click', () => operateOnResult('x'));
 divide.addEventListener('click', () => operateOnResult('/'));
 
 negativeNumber.addEventListener('click', () => convertToNegative())
-clear.addEventListener('click', () => display.textContent = 0);
-equals.addEventListener('click', () => displayResult())
+clear.addEventListener('click', () => display.textContent = '0');
+equals.addEventListener('click', () => displayResult());
 
