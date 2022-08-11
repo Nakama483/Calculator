@@ -7,6 +7,8 @@ function subtraction(x, y) {
 };
 
 function multiplication(x, y) {
+    console.log(x)
+    console.log(y)
     return Math.round((x * y) * 100000000) / 100000000;
 };
 
@@ -69,9 +71,13 @@ function displayResult() {
     if (displayArray.length === 1){
         display.textContent = +displayArray.join('')
     } else {
-        y = displayArray[displayArray.length - 1];
-        display.textContent = operate(+x, operator, +y);
-        result = display.textContent;
+        if (displayArray[displayArray.length - 1] === ''){
+            y = 'NaN';
+        }else {
+            y = displayArray[displayArray.length - 1];
+            display.textContent = operate(+x, operator, +y);
+            result = display.textContent;
+        }    
     }    
 };
 
@@ -85,12 +91,16 @@ function operateOnResult(symbol) {
         x = +display.textContent;
         operator = symbol;
         display.textContent += ` ${symbol} `;
-    } else if (/[+\-x/]/.test(display.textContent)) {
+    } else if (/[+\-x/]/.test(display.textContent)){
         displayResult();
         x = result;
-        operator = symbol
-        display.textContent += ` ${symbol} `;
-        result = undefined;
+        operator = symbol;
+        if (y === 'NaN'){
+            display.textContent += ''
+        } else {
+            display.textContent += ` ${symbol} `;
+            result = undefined;
+        }
     } else if (result !== undefined) { 
         x = result;
         operator = symbol;
@@ -144,7 +154,6 @@ function backspace(){
 };
 
 
-
 reset.addEventListener('click', () => allClear());
 clearEntry.addEventListener('click', () => backspace())
 one.addEventListener('click', () => displayInt(1));
@@ -166,3 +175,35 @@ negativeNumber.addEventListener('click', () => convertToNegative());
 equals.addEventListener('click', () => displayResult());
 
 
+
+function onKeyDown(key) {
+    const numberKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+    const operatorKeys = ['-', '+', '=', '/'];
+    if (numberKeys.includes(key)) {
+        displayInt(+key);
+    } else if (operatorKeys.includes(key)) {
+        operateOnResult(key);
+    }
+};
+
+
+
+
+window.addEventListener('keydown', (e) =>{onKeyDown(e.key)});
+
+
+
+//window.addEventListener('keydown', (e) => {displayInt(onNumberKey(e.key))});
+
+
+
+
+
+
+
+
+
+
+//   if(event.shiftKey && event.keyCode == 9) { 
+//     //shift was down when tab was pressed
+//   }
