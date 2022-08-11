@@ -7,8 +7,6 @@ function subtraction(x, y) {
 };
 
 function multiplication(x, y) {
-    console.log(x)
-    console.log(y)
     return Math.round((x * y) * 100000000) / 100000000;
 };
 
@@ -178,36 +176,21 @@ divide.addEventListener('click', () => operateOnResult('/'));
 negativeNumber.addEventListener('click', () => convertToNegative());
 equals.addEventListener('click', () => displayResult());
 
-
-
 function onKeyDown(key) {
     const numberKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-    const operatorKeys = ['-', '+', '=', '/'];
+    const operatorKeys = ['-', '+', '/'];
     if (numberKeys.includes(key)) {
         displayInt(+key);
     } else if (operatorKeys.includes(key)) {
         operateOnResult(key);
+    } else if (key === '*'){
+        operateOnResult('x')
+    } else if (key === 'Backspace') {
+        backspace();
+    } else if (key === 'Enter' || key === '='){
+        displayResult();
     }
 };
 
-
-
-
 window.addEventListener('keydown', (e) =>{onKeyDown(e.key)});
 
-
-
-//window.addEventListener('keydown', (e) => {displayInt(onNumberKey(e.key))});
-
-
-
-
-
-
-
-
-
-
-//   if(event.shiftKey && event.keyCode == 9) { 
-//     //shift was down when tab was pressed
-//   }
