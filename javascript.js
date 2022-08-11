@@ -145,7 +145,11 @@ function allClear(){
 
 function backspace(){
     let displayArray = display.textContent.split('');
-    if (displayArray[displayArray.length - 1].indexOf(' ') > -1) {
+    if (displayArray.length === 1 && displayArray[0] === '0'){
+        display.textContent = displayArray.join('');
+    } else if (displayArray.length === 1){ 
+        display.textContent = displayArray.join('');
+    } else if (displayArray[displayArray.length - 1].indexOf(' ') > -1) {
         displayArray.splice(displayArray.length - 2, displayArray.length -1)
     } else {
     displayArray.pop();
