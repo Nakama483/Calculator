@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color:blanchedalmond
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    border: 10px solid rgb(43, 38, 38);
+    border-radius: 12px;
+    width: 430px;
+    height: 530px;
+    background-color: black;
+}
+
+#display {
+    display: flex;
+    justify-content: flex-end;
+    border: 3px solid black;
+    border-radius: 4px;
+    min-height: 90px;
+    align-items: center;
+    font-size: 50px;
+    font-family: 'Orbitron', sans-serif;
+    padding-right: 8px;
+    background-color: aliceblue;
+}
+
+#buttonsContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 100%;
+    background-color: black;
+}
+
+button {
+    width: 95px;
+    margin: 2px;
+    flex-grow: 1;
+    font-size: x-large;
+    font-weight: 700;
+}
+
+#zero {
+    flex-grow: 14;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
