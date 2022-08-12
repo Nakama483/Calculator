@@ -97,6 +97,7 @@ function convertToNegative() {
     if (displayArray.length === 1){
         x = 0 - displayArray[displayArray.length - 1];
         displayArray[0] = x;
+        result = x; 
         display.textContent = displayArray.join(' ');
     } else {
         y = 0 - displayArray[displayArray.length - 1];
@@ -134,6 +135,24 @@ function backspace(){
     }
     display.textContent = displayArray.join('')
 };
+
+function keyboardSupport(key) {
+    const numberKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+    const operatorKeys = ['-', '+', '/'];
+    if (numberKeys.includes(key)) {
+        displayInt(+key);
+    } else if (operatorKeys.includes(key)) {
+        operateOnResult(key);
+    } else if (key === '*'){
+        operateOnResult('x')
+    } else if (key === 'Backspace') {
+        backspace();
+    } else if (key === 'Enter' || key === '='){
+        displayResult();
+    }
+};
+
+window.addEventListener('keydown', (e) =>{keyboardSupport(e.key)});
 
 const display = document.getElementById('display');
 const one = document.getElementById('one');
@@ -176,21 +195,5 @@ divide.addEventListener('click', () => operateOnResult('/'));
 negativeNumber.addEventListener('click', () => convertToNegative());
 equals.addEventListener('click', () => displayResult());
 
-function onKeyDown(key) {
-    const numberKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-    const operatorKeys = ['-', '+', '/'];
-    if (numberKeys.includes(key)) {
-        displayInt(+key);
-    } else if (operatorKeys.includes(key)) {
-        operateOnResult(key);
-    } else if (key === '*'){
-        operateOnResult('x')
-    } else if (key === 'Backspace') {
-        backspace();
-    } else if (key === 'Enter' || key === '='){
-        displayResult();
-    }
-};
 
-window.addEventListener('keydown', (e) =>{onKeyDown(e.key)});
 
