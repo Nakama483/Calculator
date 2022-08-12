@@ -68,6 +68,7 @@ function operateOnResult(symbol) {
         x = +display.textContent;
         operator = symbol;
         display.textContent += ` ${symbol} `;
+        result = undefined;
     } else if (/[+\-x/]/.test(display.textContent)){
         displayResult();
         x = result;
